@@ -13,7 +13,7 @@ fun MainScreen() {
 
     Column {
         AddBlock(addProduct = {
-            vm.addProduct(it)
+            vm.add(it)
         })
         LazyColumn {
             items(items = vm.list){ product ->
@@ -21,7 +21,7 @@ fun MainScreen() {
                     name = product.name,
                     checked = product.checked,
                     onCheckedChange = {
-                        vm.changeChecked(product)
+                       /* vm.changeChecked(product)*/
                     },
                     onRemove = {
                         vm.remove(product) }

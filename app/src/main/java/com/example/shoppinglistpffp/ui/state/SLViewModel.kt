@@ -1,24 +1,31 @@
 package com.example.shoppinglistpffp.ui.state
 
-import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.example.shoppinglistpffp.model.Product
+import com.example.shoppinglistpffp.domain.model.Product
 
-class SLViewModel: ViewModel() {
-    private var _list = mutableStateListOf<Product>()
-    val list: List<Product> get() = _list
+class SLViewModel : ViewModel() {
+    private var _list by mutableStateOf(mutableSetOf<Product>())  // (1)
+    val list get()= _list.toList()
+
+/*  private var _list = getFakeShoppingProducts().toMutableStateList()
+
+    //private var _list = mutableStateListOf<Product>()
+    val list get() = _list.toList()  */
 
 
-    fun remove(product: Product){
+    fun remove(product: Product) {
         _list.remove(product)
     }
 
     fun changeChecked(product: Product) {
-        product.checked = !product.checked
+        _list.toMutableList()[_list.indexOf(product)] =
+            product.copy(checked = !product.checked)
     }
 
-    fun addProduct(name: String) {
-        _list.add(Product(name))
+    fun add(name: String) {
+        _list
     }
-
 }
